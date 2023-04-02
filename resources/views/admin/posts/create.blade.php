@@ -18,20 +18,6 @@
                             <span class="font-medium text-red-600" role="alert">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="mb-4">
-                            <x-label for="image">Image</x-label>
-                            <x-input d="image" class="block w-full mt-1" name="image" type="file"/>
-                            @error('image')
-                            <span class="font-medium text-red-600" role="alert">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div>
-                            <x-label for="content">Content</x-label>
-                            <textarea id="content" class="block w-full mt-1" name="content" rows="6">{{ old('content') }}</textarea>
-                            @error('content')
-                            <span class="font-medium text-red-600" role="alert">{{ $message }}</span>
-                            @enderror
-                        </div>
                         <div class="mt-6">
                             <x-button>Submit</x-button>
                         </div>

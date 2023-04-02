@@ -25,6 +25,8 @@ class OpenAiApi
                 ]
             ],
         ]);
+
+        return json_decode($response->getBody())->choices[0]->message->content;
     }
 
     public function getImageContentUrl(string $topic, ?string $size = '512x512'): string

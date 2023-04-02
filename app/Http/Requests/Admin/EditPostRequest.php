@@ -25,6 +25,7 @@ class EditPostRequest extends FormRequest
     {
         return [
             'title'     => 'required',
+            'image'     => 'nullable|image|dimensions:max_width=512,max_height=512',
             'content'   => 'required',
         ];
     }

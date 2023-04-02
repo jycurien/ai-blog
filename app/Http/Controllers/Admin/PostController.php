@@ -34,11 +34,13 @@ class PostController extends Controller
 
         $filename = uniqid() . '_' . time() . '.png';
         Storage::disk('public')->put('uploads/' . $filename, file_get_contents($imgUrl));
+
+        $content = $openAiApi->getTextContent($request->title, 300);
         
         $post = Post::create([
             'title' => $request->title,
             'image' => 'storage/uploads/' . $filename,
-            'content' => $request->content,
+            'content' => $content,
         ]);
 
         return redirect()->route('admin.posts.index');
@@ -49,7 +51,7 @@ class PostController extends Controller
         return view('admin.posts.edit', ['post' => $post]);
     }
 
-    public function update(OpenAiApi $openAiApi, EditPostRequest $request, Post $post): RedirectResponse
+    public function update(EditPostRequest $request, Post $post): RedirectResponse
     {
         if ($request->has('image')) {
             Storage::delete('public/uploads/' . $post->image);
