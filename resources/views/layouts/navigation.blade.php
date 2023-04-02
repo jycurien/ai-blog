@@ -48,9 +48,6 @@
                         <x-dropdown-link :href="route('admin.posts.index')">
                             {{ __('Posts') }}
                         </x-dropdown-link>
-                        <x-dropdown-link :href="route('admin.tags.index')">
-                            {{ __('Tags') }}
-                        </x-dropdown-link>
                         <x-dropdown-link :href="route('admin.profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
@@ -110,9 +107,6 @@
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('admin.posts.index')">
                     {{ __('Posts') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('admin.tags.index')">
-                    {{ __('Tags') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('admin.profile.edit')">
                     {{ __('Profile') }}

@@ -40,26 +40,16 @@ class PostController extends Controller
             'content' => $request->content,
         ]);
 
-        foreach ($tags as $tagName) {
-            $tag = Tag::firstOrCreate(['name' => $tagName]);
-            $post->tags()->attach($tag);
-        }
-
         return redirect()->route('admin.posts.index');
     }
 
     public function edit(Post $post): View
     {
-        return view('admin.posts.edit', [
-            'post' => $post,
-            'tags' => $post->tags->implode('name', ', '),
-        ]);
+        return view('admin.posts.edit', ['post' => $post]);
     }
 
     public function update(EditPostRequest $request, Post $post): RedirectResponse
     {
-        $tags = explode(',', $request->tags);
-
         if ($request->has('image')) {
             Storage::delete('public/uploads/' . $post->image);
             
@@ -72,13 +62,6 @@ class PostController extends Controller
             'image' => $filename ?? false ? 'storage/uploads/' . $filename : $post->image,
             'content' => $request->content,
         ]);
-
-        $newTags = [];
-        foreach ($tags as $tagName) {
-            $tag = Tag::firstOrCreate(['name' => $tagName]);
-            array_push($newTags, $tag->id);
-        }
-        $post->tags()->sync($newTags);
 
         return redirect()->route('admin.posts.index');
     }

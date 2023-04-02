@@ -26,14 +26,6 @@
                             <span class="font-medium text-red-600" role="alert">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="mb-4">
-                            <x-label class="block text-sm text-gray-600" for="tags">Tags</x-label>
-                            <x-input id="tags" class="block w-full mt-1" name="tags" type="text" value="{{ old('tags', $tags) }}"/>
-                            <span class="text-xs text-gray-400">Separated by comma</span>
-                            @error('tags')
-                            <span class="font-medium text-red-600" role="alert">{{ $message }}</span>
-                            @enderror
-                        </div>
                         <div>
                             <x-label class="block text-sm text-gray-600" for="content">Post</x-label>
                             <textarea id="content" class="block w-full mt-1" name="content" rows="6">{{ old('content', $post->content) }}</textarea>

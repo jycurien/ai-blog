@@ -19,12 +19,12 @@ use App\Http\Controllers\Admin\PostController as AdminPostController;
 */
 
 Route::get('/', function () {
-    $posts = Post::with('tags')->take(4)->latest()->get();
+    $posts = Post::latest()->take(4)->get();
     return view('home.index', ['posts' => $posts]);
 })->name('home');
 
 Route::get('posts', [PostController::class, 'index'])->name('posts.index');
-Route::get('post/{id}', [PostController::class, 'show'])->name('posts.show');
+Route::get('post/{post}', [PostController::class, 'show'])->name('posts.show');
 Route::view('about', 'about.index')->name('about');
 
 

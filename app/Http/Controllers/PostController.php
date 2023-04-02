@@ -9,15 +9,13 @@ class PostController extends Controller
 {
     public function index(): View
     {
-        $posts = Post::with('tags')->latest()->paginate(10);
+        $posts = Post::latest()->paginate(10);
 
         return view('posts.index', ['posts' => $posts]);
     }
 
-    public function show(int $id): View
+    public function show(Post $post): View
     {
-        $post = Post::with('tags')->findOrFail($id);
-
         return view('posts.show', ['post' => $post]);
     }
 }
