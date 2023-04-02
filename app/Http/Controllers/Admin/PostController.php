@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Tag;
 use App\Models\Post;
 use App\Models\Category;
+use App\Service\OpenAiApi;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -25,18 +26,18 @@ class PostController extends Controller
     }
 
     
-    public function store(CreatePostRequest $request): RedirectResponse
+    public function store(OpenAiApi $openAiApi, CreatePostRequest $request): RedirectResponse
     {
         $tags = explode(',', $request->tags);
 
-        if ($request->has('image')) {
-            $filename = time() . '_' . $request->file('image')->getClientOriginalName();
-            $request->file('image')->storeAs('uploads', $filename, 'public');
-        }
+        $imgUrl = $openAiApi->getImageContentUrl($request->title, '512x512');
+
+        $filename = uniqid() . '_' . time() . '.png';
+        Storage::disk('public')->put('uploads/' . $filename, file_get_contents($imgUrl));
         
-        $post = auth()->user()->posts()->create([
+        $post = Post::create([
             'title' => $request->title,
-            'image' => $filename ?? false ? 'storage/uploads/' . $filename : null,
+            'image' => 'storage/uploads/' . $filename,
             'content' => $request->content,
         ]);
 
@@ -48,7 +49,7 @@ class PostController extends Controller
         return view('admin.posts.edit', ['post' => $post]);
     }
 
-    public function update(EditPostRequest $request, Post $post): RedirectResponse
+    public function update(OpenAiApi $openAiApi, EditPostRequest $request, Post $post): RedirectResponse
     {
         if ($request->has('image')) {
             Storage::delete('public/uploads/' . $post->image);
@@ -72,7 +73,6 @@ class PostController extends Controller
             Storage::delete(str_replace('storage', 'public', $post->image));
         }
 
-        $post->tags()->detach();
         $post->delete();
 
         return redirect()->route('admin.posts.index');
