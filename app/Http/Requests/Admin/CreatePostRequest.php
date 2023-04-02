@@ -25,9 +25,8 @@ class CreatePostRequest extends FormRequest
     {
         return [
             'title'     => 'required',
-            'image'     => 'nullable|image|dimensions:max_width=1024,max_height=768',
+            'image'     => 'nullable|image|dimensions:max_width=512,max_height=512',
             'content'   => 'required',
-            'category'  => 'required|integer|exists:categories,id',
             'tags'      => 'required'
         ];
     }

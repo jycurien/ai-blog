@@ -16,12 +16,12 @@ class PostController extends Controller
 {
     public function index(): View
     {
-        return view('admin.posts.index', ['posts' => Post::with('category')->paginate(20)]);
+        return view('admin.posts.index', ['posts' => Post::paginate(20)]);
     }
 
     public function create(): View
     {
-        return view('admin.posts.create', ['categories' => Category::all()]);
+        return view('admin.posts.create');
     }
 
     
@@ -38,7 +38,6 @@ class PostController extends Controller
             'title' => $request->title,
             'image' => $filename ?? false ? 'storage/uploads/' . $filename : null,
             'content' => $request->content,
-            'category_id' => $request->category
         ]);
 
         foreach ($tags as $tagName) {
@@ -54,7 +53,6 @@ class PostController extends Controller
         return view('admin.posts.edit', [
             'post' => $post,
             'tags' => $post->tags->implode('name', ', '),
-            'categories' => Category::all()
         ]);
     }
 
@@ -73,7 +71,6 @@ class PostController extends Controller
             'title' => $request->title,
             'image' => $filename ?? false ? 'storage/uploads/' . $filename : $post->image,
             'content' => $request->content,
-            'category_id' => $request->category
         ]);
 
         $newTags = [];

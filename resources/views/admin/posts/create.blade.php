@@ -33,19 +33,6 @@
                             <span class="font-medium text-red-600" role="alert">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="mb-4">
-                            <x-label for="category">Category</x-label>
-                            <select name="category" id="category" class="block w-full mt-1">
-                                <option value="0">--- SELECT CATEGORY ---</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}"
-                                            @if ($category->id == old('category')) selected @endif>{{ $category->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('category')
-                            <span class="font-medium text-red-600" role="alert">{{ $message }}</span>
-                            @enderror
-                        </div>
                         <div>
                             <x-label for="content">Content</x-label>
                             <textarea id="content" class="block w-full mt-1" name="content" rows="6">{{ old('content') }}</textarea>

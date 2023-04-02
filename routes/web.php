@@ -4,7 +4,6 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\TagController as AdminTagController;
 use App\Http\Controllers\Admin\PostController as AdminPostController;
 
@@ -20,7 +19,7 @@ use App\Http\Controllers\Admin\PostController as AdminPostController;
 */
 
 Route::get('/', function () {
-    $posts = Post::with('category', 'tags')->take(4)->latest()->get();
+    $posts = Post::with('tags')->take(4)->latest()->get();
     return view('home.index', ['posts' => $posts]);
 })->name('home');
 
@@ -33,7 +32,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'as' => 'admin.'], fu
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::resource('categories', AdminCategoryController::class);
     Route::resource('tags', AdminTagController::class);
     Route::resource('posts', AdminPostController::class);
 });
