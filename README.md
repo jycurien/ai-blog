@@ -1,6 +1,6 @@
 # laravel-sandbox
 
-A sandbox to play and test things with Laravel, based on Breeze starter kit with TailwindCSS
+An AI Automated Blog
 
 ## Install
 
