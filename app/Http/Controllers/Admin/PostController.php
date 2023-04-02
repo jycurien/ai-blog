@@ -73,7 +73,6 @@ class PostController extends Controller
         }
 
         $post->tags()->detach();
-        $post->delete();
 
         return redirect()->route('admin.posts.index');
     }
