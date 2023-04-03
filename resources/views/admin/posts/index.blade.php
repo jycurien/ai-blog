@@ -49,7 +49,7 @@
                             @csrf
                             @method('DELETE')
                 
-                            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                            <h2 class="text-lg font-medium text-gray-900">
                                 {{ __('Are you sure you want to delete this post?') }}
                             </h2>
                 

@@ -25,12 +25,12 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-200 dark:bg-gray-900 flex flex-col">
+        <div class="min-h-screen bg-gray-200 flex flex-col">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white dark:bg-gray-800 shadow">
+                <header class="bg-white shadow">
                     <div class="py-6">
                         {{ $header }}
                     </div>
@@ -44,7 +44,7 @@
                         <p class="text-2xl font-bold mb-2 flex justify-between">Disclaimer <span class="text-4xl cursor-pointer" title="Close disclaimer" @click="show = false">&times;</span></p>
                         <p class="mb-2 text-sm">The texts and images in this blog are generated randomly by artificial intelligence and may not be accurate or reflect the opinion of the site owner. The information presented is purely for entertainment purposes and should not be considered as professional advice or factual.</p> 
                         <p class="mb-2 text-sm">The site owner holds no responsibility for any inaccuracies or misunderstandings that may arise from the use of this content. Readers are encouraged to verify any information presented and use their own judgment when interpreting the content of this blog.</p>
-                        <p class="text-sm">If you want to read human created, and hopefully more interesting content, you can <a href="https://jycurien.fr" class="text-blue-600 dark:text-blue-500 hover:underline" target="_blank" rel="noopener">visit my website</a>.</p>
+                        <p class="text-sm">If you want to read human created, and hopefully more interesting content, you can <a href="https://jycurien.fr" class="text-blue-600 hover:underline" target="_blank" rel="noopener">visit my website</a>.</p>
                     </div>
                 </div>
                 {{ $slot }}
