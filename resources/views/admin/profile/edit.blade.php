@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout title="Admin - Profile">
     <x-slot name="header">
         <div class="text-center">
             <h1 class="text-6xl font-bold text-orange-600">{{ __('Profile') }}</h1>

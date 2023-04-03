@@ -1,8 +1,8 @@
-<x-app-layout>
+<x-app-layout title="Home">
     <x-slot name="header">
         <div class="text-center p-16">
-            <h1 class="text-6xl font-bold text-orange-600">Welcome to my incredible blog!</h1>
-            <p class="mt-6 text-lg leading-8 text-gray-900">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.</p>
+            <h1 class="text-6xl font-bold text-orange-600">Welcome to our AI-generated blog!</h1>
+            <p class="mt-6 text-lg leading-8 text-gray-900 mx-auto max-w-7xl">Explore the frontiers of technology with us as we cover cutting-edge advancements and fascinating insights powered by the latest machine learning algorithms. Discover the limitless possibilities of AI with our innovative content.</p>
         </div>
     </x-slot>
 

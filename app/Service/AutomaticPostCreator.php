@@ -20,7 +20,7 @@ class AutomaticPostCreator implements AutomaticPostCreatorInterface
     public function createPost(): Post
     {
         try {
-            $title = $this->textApi->getRandomTitle(80);
+            $title = $this->textApi->getRandomTitle(60);
             echo "$title\n";
             $imgUrl = $this->imageApi->getImageContentUrl($title, '512x512');
             $content = $this->textApi->getPostContent($title, 300);
