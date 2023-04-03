@@ -1,7 +1,7 @@
 <x-app-layout title="{!! $post->title !!}">
     <x-slot name="header">
         <div class="text-center">
-            <h1 class="font-bold text-6xl text-orange-600 mx-16">{{ $post->title }}</h1>
+            <h1 class="font-bold text-6xl text-blue-900 mx-16">{{ $post->title }}</h1>
         </div>
     </x-slot>
 

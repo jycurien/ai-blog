@@ -1,7 +1,7 @@
 <x-app-layout title="Posts">
     <x-slot name="header">
         <div class="text-center">
-            <h1 class="text-6xl font-bold text-orange-600">Posts</h1>
+            <h1 class="text-6xl font-bold text-blue-900">Posts</h1>
         </div>
     </x-slot>
 

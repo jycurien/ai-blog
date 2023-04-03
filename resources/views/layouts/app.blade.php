@@ -39,6 +39,12 @@
 
             <!-- Page Content -->
             <main class="mt-6 mb-6 flex-1 container mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+                <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 mb-6" role="alert" x-data="{ show: true }" x-show="show">
+                    <p class="text-2xl font-bold mb-2 flex justify-between">Disclaimer <span class="text-4xl cursor-pointer" title="Close disclaimer" @click="show = false">&times;</span></p>
+                    <p class="mb-2 text-sm">The texts and images in this blog are generated randomly by artificial intelligence and may not be accurate or reflect the opinion of the site owner. The information presented is purely for entertainment purposes and should not be considered as professional advice or factual.</p> 
+                    <p class="mb-2 text-sm">The site owner holds no responsibility for any inaccuracies or misunderstandings that may arise from the use of this content. Readers are encouraged to verify any information presented and use their own judgment when interpreting the content of this blog.</p>
+                    <p class="text-sm">If you want to read human created, and hopefully more interesting, content, you can <a href="https://jycurien.fr" class="text-blue-600 dark:text-blue-500 hover:underline" target="_blank" rel="noopener">visit my website</a>.</p>
+                </div>
                 {{ $slot }}
             </main>
 
