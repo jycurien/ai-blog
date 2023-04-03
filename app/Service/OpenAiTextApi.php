@@ -17,7 +17,7 @@ class OpenAiTextApi implements AiTextApi
 
     public function getRandomTitle(int $nbCharacters): string
     {
-        return $this->getTextContent('Give me a ' . $nbCharacters . ' long random post title');
+        return $this->getTextContent('Give me a ' . $nbCharacters . ' characters long random post title');
     }
 
     public function getPostContent(string $topic, int $nbWords): string
