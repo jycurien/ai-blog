@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Contract\AiImageApi;
+use App\Exceptions\AiApiException;
 use Illuminate\Support\Facades\Http;
 
 class OpenAiImageApi implements AiImageApi
@@ -20,8 +21,13 @@ class OpenAiImageApi implements AiImageApi
             'prompt' => $prompt,
             'n' => 1,
             'size' => $size,
-        ]);   
+        ]); 
+        $decodedResponse = json_decode($response->getBody());
         
-        return json_decode($response->getBody())->data[0]->url;
+        if ($decodedResponse?->error ?? false) {
+            throw new AiApiException($decodedResponse?->error?->message);
+        }
+
+        return $decodedResponse->data[0]->url;
     }
 }

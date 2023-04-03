@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Contract\AiTextApi;
+use App\Exceptions\AiApiException;
 use Illuminate\Support\Facades\Http;
 
 class OpenAiTextApi implements AiTextApi
@@ -36,6 +37,12 @@ class OpenAiTextApi implements AiTextApi
             ],
         ]);
 
-        return json_decode($response->getBody())->choices[0]->message->content;
+        $decodedResponse = json_decode($response->getBody());
+        
+        if ($decodedResponse?->error ?? false) {
+            throw new AiApiException($decodedResponse?->error?->message);
+        }
+
+        return $decodedResponse->choices[0]->message->content;
     }
 }

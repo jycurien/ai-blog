@@ -29,14 +29,18 @@ class PostController extends Controller
     
     public function store(AiImageApi $imageApi, AiTextApi $textApi, CreatePostRequest $request): RedirectResponse
     {
-        $tags = explode(',', $request->tags);
-
-        $imgUrl = $imageApi->getImageContentUrl($request->title, '512x512');
+        try {
+            $imgUrl = $imageApi->getImageContentUrl($request->title, '512x512');
+            $content = $textApi->getPostContent($request->title, 300);
+        } catch (\Exception $exception) {
+            return back()->withErrors([
+                'error' => sprintf('Could not create post: %s', $exception->getMessage())
+            ]);
+        }
 
         $filename = uniqid() . '_' . time() . '.png';
         Storage::disk('public')->put('uploads/' . $filename, file_get_contents($imgUrl));
 
-        $content = $textApi->getPostContent($request->title, 300);
         
         $post = Post::create([
             'title' => $request->title,
