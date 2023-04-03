@@ -1,7 +1,7 @@
 <x-app-layout title="Admin - Posts List">
     <x-slot name="header">
         <div class="text-center">
-            <h1 class="text-6xl font-bold text-blue-900">{{ __('Posts list') }}</h1>
+            <h1 class="text-3xl lg:text-6xl font-bold text-blue-900">{{ __('Posts list') }}</h1>
         </div>
     </x-slot>
 
@@ -34,17 +34,36 @@
                                         Edit
                                     </x-link>
 
-                                    <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST"
-                                          onsubmit="return confirm('Are you sure?');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <x-button>Delete</x-button>
-                                    </form>
+                                    <x-danger-button
+                                        x-data=""
+                                        x-on:click.prevent="$dispatch('open-modal', {name: 'confirm-post-deletion', form_route: '{{ route('admin.posts.destroy', $post->id) }}'})"
+                                    >{{ __('Delete') }}</x-danger-button>
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
+
+                    <x-modal name="confirm-post-deletion" focusable>
+                        <form method="POST" action="" class="p-6" x-ref="modalForm">
+                            @csrf
+                            @method('DELETE')
+                
+                            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                                {{ __('Are you sure you want to delete this post?') }}
+                            </h2>
+                
+                            <div class="mt-6 flex justify-end">
+                                <x-secondary-button x-on:click="$dispatch('close')">
+                                    {{ __('Cancel') }}
+                                </x-secondary-button>
+                
+                                <x-danger-button class="ml-3">
+                                    {{ __('Delete') }}
+                                </x-danger-button>
+                            </div>
+                        </form>
+                    </x-modal>
 
                     {{ $posts->links() }}
                 </div>

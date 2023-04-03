@@ -1,7 +1,7 @@
 <x-app-layout title="Admin - Posts Create">
     <x-slot name="header">
         <div class="text-center">
-            <h1 class="text-6xl font-bold text-blue-900">{{ __('Create Post') }}</h1>
+            <h1 class="text-3xl lg:text-6xl font-bold text-blue-900">{{ __('Create Post') }}</h1>
         </div>
     </x-slot>
 
