@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Tag;
 use App\Models\Post;
 use App\Models\Category;
+use App\Contract\AiTextApi;
+use App\Contract\AiImageApi;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -16,7 +18,7 @@ class PostController extends Controller
 {
     public function index(): View
     {
-        return view('admin.posts.index', ['posts' => Post::paginate(20)]);
+        return view('admin.posts.index', ['posts' => Post::latest()->paginate(20)]);
     }
 
     public function create(): View
@@ -25,19 +27,25 @@ class PostController extends Controller
     }
 
     
-    public function store(CreatePostRequest $request): RedirectResponse
+    public function store(AiImageApi $imageApi, AiTextApi $textApi, CreatePostRequest $request): RedirectResponse
     {
-        $tags = explode(',', $request->tags);
-
-        if ($request->has('image')) {
-            $filename = time() . '_' . $request->file('image')->getClientOriginalName();
-            $request->file('image')->storeAs('uploads', $filename, 'public');
+        try {
+            $imgUrl = $imageApi->getImageContentUrl($request->title, '512x512');
+            $content = $textApi->getPostContent($request->title, 300);
+        } catch (\Exception $exception) {
+            return back()->withErrors([
+                'error' => sprintf('Could not create post: %s', $exception->getMessage())
+            ]);
         }
+
+        $filename = uniqid() . '_' . time() . '.png';
+        Storage::disk('public')->put('uploads/' . $filename, file_get_contents($imgUrl));
+
         
-        $post = auth()->user()->posts()->create([
+        $post = Post::create([
             'title' => $request->title,
-            'image' => $filename ?? false ? 'storage/uploads/' . $filename : null,
-            'content' => $request->content,
+            'image' => 'storage/uploads/' . $filename,
+            'content' => $content,
         ]);
 
         return redirect()->route('admin.posts.index');
@@ -72,7 +80,7 @@ class PostController extends Controller
             Storage::delete(str_replace('storage', 'public', $post->image));
         }
 
-        $post->tags()->detach();
+        $post->delete();
 
         return redirect()->route('admin.posts.index');
     }

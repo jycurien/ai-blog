@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@media (min-width: 768px) {
+    .post-image {
+        transform: rotateZ(-3deg) translate(-16px, -16px);
+        -webkit-box-shadow: 8px 8px 8px 4px rgba(115, 115, 115, 0.6);
+        box-shadow: 8px 8px 8px 4px rgba(115, 115, 115, 0.6);
+    }
+}
