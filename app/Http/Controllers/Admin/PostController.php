@@ -27,8 +27,6 @@ class PostController extends Controller
     
     public function store(CreatePostRequest $request): RedirectResponse
     {
-        $tags = explode(',', $request->tags);
-
         if ($request->has('image')) {
             $filename = time() . '_' . $request->file('image')->getClientOriginalName();
             $request->file('image')->storeAs('uploads', $filename, 'public');
