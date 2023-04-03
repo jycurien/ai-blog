@@ -5,7 +5,7 @@
         <div class="flex-1 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
             <div class="mb-8">
                 <div class="text-gray-900 font-bold text-xl mb-2">{{ $post->title }}</div>
-                <p class="text-gray-700 text-base">{!! nl2br(mb_substr($post->content, 0, 100)) !!}</p>
+                <p class="text-gray-700 text-base">{!! nl2br($post->excerpt()) !!}</p>
             </div>
             <x-link :href="route('posts.show', $post->id)">
                 Read More
