@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Tag;
 use App\Models\Post;
 use App\Models\Category;
-use App\Service\OpenAiApi;
+use App\Contract\AiTextApi;
+use App\Contract\AiImageApi;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -17,7 +18,7 @@ class PostController extends Controller
 {
     public function index(): View
     {
-        return view('admin.posts.index', ['posts' => Post::paginate(20)]);
+        return view('admin.posts.index', ['posts' => Post::latest()->paginate(20)]);
     }
 
     public function create(): View
@@ -26,16 +27,16 @@ class PostController extends Controller
     }
 
     
-    public function store(OpenAiApi $openAiApi, CreatePostRequest $request): RedirectResponse
+    public function store(AiImageApi $imageApi, AiTextApi $textApi, CreatePostRequest $request): RedirectResponse
     {
         $tags = explode(',', $request->tags);
 
-        $imgUrl = $openAiApi->getImageContentUrl($request->title, '512x512');
+        $imgUrl = $imageApi->getImageContentUrl($request->title, '512x512');
 
         $filename = uniqid() . '_' . time() . '.png';
         Storage::disk('public')->put('uploads/' . $filename, file_get_contents($imgUrl));
 
-        $content = $openAiApi->getTextContent($request->title, 300);
+        $content = $textApi->getPostContent($request->title, 300);
         
         $post = Post::create([
             'title' => $request->title,
