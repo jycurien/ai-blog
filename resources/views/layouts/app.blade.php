@@ -43,7 +43,7 @@
             </main>
 
             <footer class="bg-white p-4">
-                <p class="text-center">&copy; 2023</p>
+                <p class="text-center">&copy; 2023 - Jean-Yves Curien</p>
             </footer>
         </div>
     </body>
