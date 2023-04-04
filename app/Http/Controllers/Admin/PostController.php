@@ -41,7 +41,6 @@ class PostController extends Controller
         $filename = uniqid() . '_' . time() . '.png';
         Storage::disk('public')->put('uploads/' . $filename, file_get_contents($imgUrl));
 
-        
         $post = Post::create([
             'title' => $request->title,
             'image' => 'storage/uploads/' . $filename,
