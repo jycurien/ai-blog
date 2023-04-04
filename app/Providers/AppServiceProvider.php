@@ -6,6 +6,8 @@ use App\Contract\AiTextApi;
 use App\Contract\AiImageApi;
 use App\Service\OpenAiTextApi;
 use App\Service\OpenAiImageApi;
+use App\Service\AutomaticPostCreator;
+use App\Contract\AutomaticPostCreator as AutomaticPostCreatorInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,6 +30,8 @@ class AppServiceProvider extends ServiceProvider
                 'https://api.openai.com/v1/images/generations'    
             )
         );
+
+        $this->app->singleton(AutomaticPostCreatorInterface::class, AutomaticPostCreator::class);
     }
 
     /**
