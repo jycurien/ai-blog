@@ -6,9 +6,9 @@ An AI Automated Blog
 
 -   copy .env.example to .env
 -   composer install
--   sail up -d
--   sail artisan key:generate
--   sail artisan migrate:fresh --seed
--   sail artisan storage:link
+-   ./vendor/bin/sail up -d
+-   ./vendor/bin/sail artisan key:generate
+-   ./vendor/bin/sail artisan migrate:fresh --seed
+-   ./vendor/bin/sail artisan storage:link
 -   npm install
 -   npm run dev
