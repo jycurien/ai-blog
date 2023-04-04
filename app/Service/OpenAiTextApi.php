@@ -22,7 +22,7 @@ class OpenAiTextApi implements AiTextApi
 
     public function getPostContent(string $topic, int $nbWords): string
     {
-        return $this->getTextContent('Write a ' . $nbWords . ' words post about this topic:' . $topic);
+        return $this->getTextContent('Write a ' . $nbWords . ' words post about this topic: ' . $topic);
     }
 
     private function getTextContent(string $prompt): string
