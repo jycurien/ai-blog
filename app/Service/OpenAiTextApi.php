@@ -23,12 +23,12 @@ class OpenAiTextApi implements AiTextApi
 
     public function getPostContent(string $topic, int $nbWords): string
     {
-        return $this->getTextContent('Write a ' . $nbWords . ' words post about this topic: ' . $topic);
+        return $this->getTextContent('Write a ' . $nbWords . ' words post about the following topic: "' . $topic .'"');
     }
 
     private function getTextContent(string $prompt): string
     {
-        $response = Http::withToken($this->apiKey)->post($this->apiTextUrl, [
+        $response = Http::withToken($this->apiKey)->timeout(100)->post($this->apiTextUrl, [
             'model' => 'gpt-3.5-turbo',
             'messages' => [
                 [
